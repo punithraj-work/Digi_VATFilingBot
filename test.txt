@@ -1,0 +1,102 @@
+VAT Return
+TRN: 102097983274903
+Period Start Date: 01/02/2022
+Period End Date: 29/04/2022
+Amount (AED)
+VAT Amount (AED)
+Adjustments (AED)
+1.a
+Standard Rated Supplies in Abu Dhabi
+0.00
+0.00
+0.00
+1.b
+Standard Rated Supplies in Dubai
+2000.00
+100.00
+0.00
+1.c
+Standard Rated Supplies in Sharjah
+0.00
+0.00
+0.00
+1.d
+Standard Rated Supplies in Ajman
+0.00
+0.00
+0.00
+1.e
+Standard Rated Supplies in Umm Al Quwain
+0.00
+0.00
+0.00
+1.f
+Standard Rated Supplies in Ras Al-Khaimah
+0.00
+0.00
+0.00
+1.g
+Standard Rated Supplies in Fujairah
+0.00
+0.00
+0.00
+2
+Tax Refunds Provided to Tourists under the Tax Refund for
+Tourists Scheme
+0.00
+0.00
+0.00
+3
+Supplies subject to Reverse Charge Provisions
+0.00
+0.00
+0.00
+4
+Zero Rated Supplies
+0.00
+5
+Exempt Supplies
+0.00
+6
+Goods imported to the UAE
+0.00
+0.00
+7
+Adjustments to goods imported to the UAE
+0.00
+0
+8
+TOTALS
+2000.00
+100.00
+0.00
+VAT on Sales & Other Outputs
+Total Value of Tax Due for the period
+100.00
+Total Value of recoverable tax for the period
+0.00
+Payable for the period
+100.00
+VAT Return
+TRN: 102097983274903
+Period Start Date: 01/02/2022
+Period End Date: 29/04/2022
+Amount (AED)
+VAT Amount (AED)
+Adjustments (AED)
+9
+Standard Rated Expenses
+0.00
+0.00
+0.00
+10
+Supplies subject to Reverse Charge Provisions
+0.00
+0.00
+11
+TOTALS
+0.00
+0.00
+0.00
+VAT on Expenses and All other Inputs
+Net VAT Due
