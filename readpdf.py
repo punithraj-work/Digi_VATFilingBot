@@ -3,10 +3,10 @@ import fitz
 
 def readpdf():
     #Program to read pdf and get the data in it and save in textfile
-    with fitz.open("example.pdf") as doc:
+    with fitz.open("./PDF/example.pdf") as doc:
         text = ""
-    for page in doc:
-        text += page.get_text()
+        for page in doc:
+            text += page.get_text()
 
     with open("test.txt", "w") as f:
         data = f.write(text)

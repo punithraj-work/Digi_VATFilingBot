@@ -33,290 +33,10 @@ import chromedriver_autoinstaller as chrome
 
 from readpdf import readpdf
 
-
-def loopcalenderselect(elem_id, date):
-    # calendarselect = driver.find_element(By.XPATH, "//input[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_MOFExciseLostAndDestroyDashboard_txtDateFrom']")
-    driver.execute_script(f"document.getElementById"
-                                        f"('{elem_id}')"
-                                        f".value='{date}'")
-    # calendarselect.send_keys("12-07-2022")
-    
-def getmonthlastday(userdateselect):
-    import datetime
-    userdateselect = datetime.datetime(2018, 7, 1)
-    # getting next month
-    # using replace to get to last day + offset
-    # to reach next month
-    nxt_mnth = userdateselect.replace(day=28) + datetime.timedelta(days=4)
-
-    # subtracting the days from next month date to
-    # get last date of current Month
-    res = nxt_mnth - datetime.timedelta(days=nxt_mnth.day)
-    res = int(res.strftime("%d"))
-    return res
-            
 def getcurrenttime():
     timestamp = datetime.now()
     timestamp = timestamp.strftime("%d-%b %H:%M:%S")
     return timestamp
-
-def funcdatarecon(pjsonfile,jsonformname,FTADeclarray,ftaperiod,secnn):    
-    if ftaperiod=="0":
-         periodm=""
-    else:
-        periodm=ftaperiod[0]
-    
-    if ftaperiod=="0":
-         periody=""
-    else:
-        periody=ftaperiod[1]
-    
-    # F201s1declnoc=0
-    # F202as1declnoc=0
-    # F202as2declnoc=0
-    # F202bs1declnoc=0
-    # F203as1declnoc=0
-    # F203as2declnoc=0
-    # F203bs1declnoc=0
-    # F203bs2declnoc=0
-    # F203bs3declnoc=0
-    # F203cs1declnoc=0
-    # F203cs2declnoc=0
-    # F203cs3declnoc=0
-    # F203deds1declnoc=0
-    Missingdeclno=[]
-    Missingdeclno1=[]
-    declnos=0
-    isfound=False
-    taxcisejsonf=open(pjsonfile, 'r')
-    taxcisejsonf=json.loads(taxcisejsonf.read())
-    ## taxcisejsonf=taxcisejsonf.read()
-    ## total = taxcisejsonf.count(search_word)
-    for declno in FTADeclarray:
-        isfound=False
-        for decl in taxcisejsonf['data']:
-            if decl['Declaration']==jsonformname and decl['PeriodMonth']==periodm and decl['PeriodYear']==periody:
-                if secnn=="sec1":
-                    if decl['DeclarationNumber']==declno:
-                        declnos=declnos+1
-                        isfound=True
-                elif secnn=="sec2":
-                    if declno not in formftasec1T:
-                        if decl['DeclarationNumber']==declno:
-                            declnos=declnos+1
-                            isfound=True
-                elif secnn=="sec3":
-                    if declno not in formftasec2T and declno not in formftasec1T:
-                        if decl['DeclarationNumber']==declno:
-                            declnos=declnos+1
-                            isfound=True
-
-        if not isfound:
-            if secnn=="sec1": #or secnn=="sec3":
-                Missingdeclno.clear()
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 1'))
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 1'))
-                # Missingdeclno.append(str(periodm)+"-"+str(periody))
-                Missingdeclno.append(declno)
-                # Missingdeclno1.append(Missingdeclno)
-                
-                arraydata = np.array(Missingdeclno)
-                Missingdeclno1.append(arraydata)
-                # print(Missingdeclno1)
-            elif secnn=="sec2" and declno not in formftasec1T:
-                Missingdeclno.clear()
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 2'))
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 2'))
-                # Missingdeclno.append(str(periodm)+"-"+str(periody))
-                Missingdeclno.append(declno)
-                # Missingdeclno1.append(Missingdeclno)
-                
-                arraydata = np.array(Missingdeclno)
-                Missingdeclno1.append(arraydata)
-                # print(Missingdeclno1)
-            elif secnn=="sec3" and ((declno not in formftasec2T) and (declno not in formftasec1T)):
-                Missingdeclno.clear()
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 2'))
-                Missingdeclno.append("")    # Missingdeclno.append(str(jsonformname)+str(' Section 2'))
-                # Missingdeclno.append(str(periodm)+"-"+str(periody))
-                Missingdeclno.append(declno)
-                # Missingdeclno1.append(Missingdeclno)
-                arraydata = np.array(Missingdeclno)
-                Missingdeclno1.append(arraydata)
-                # print(Missingdeclno1)
-            
-    # res = list(set(declno) ^ set(f))
-    
-    # writetoexcel(Missingdeclno1,1)
-    # print(total)
-    return declnos,Missingdeclno1
-
-
-def checkmissdecl(pjsonfile,pftaformname,pftaperiod,secn,ftacount,ftaonlys2count):
-    Recontdetails=[]
-    Recontdetails1=[]
-    reconmissingnos=[]
-    loopc=0
-    i=0
-    for formdata in form201s1FTA,form202as1egFTA,form202as1rgdzFTA,form202as1tgdzFTA,form202as1tgedzFTA,form202as1cgdzFTA,form202as1imdzFTA,form202as1pddzFTA,form202bs1FTA,form203as1FTA,form203as2FTA,form203bs1FTA,form203bs2FTA,form203cs1FTA,form203cs2FTA,form203cs3FTA,form203deds1FTA:
-    # for formdata in ftaformdata:
-        if len(formdata)>0 and i<=0:
-            loopc+=1
-            Recontdetails.clear()
-            Recontdetails1.clear()
-            # print(formdata)
-            # taxcisefname = "EX201 - Excise Goods Customs"
-            # recond= funcdatarecon(taxcisejson,taxcisefname,formdata)
-            recond = funcdatarecon(pjsonfile,pftaformname,formdata,pftaperiod,secn)
-            reconmissingnos=recond[1]
-            # print(type(reconmissingnos))
-            # print("recond")
-            # print(recond[1])
-            # arraydata = np.array(recond[0])
-            # print(arraydata[1])
-            if len(form201s1FTA)!=0: #i==1:
-                Recontdetails.append("Form 201 S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1egFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form202A S1 EG")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 EG")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1rgdzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 RGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 RGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1tgdzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 TGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 TGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1tgedzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 TGEDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 TGEDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1cgdzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 CGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 CGDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1imdzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 IMDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 IMDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form202as1pddzFTA)!=0: #i==2:
-                if secn=="sec1":
-                    Recontdetails.append("Form 202A S1 PDDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount))
-                else:
-                    Recontdetails.append("Form 202A S2 PDDZ")
-                    Recontdetails.append("FTA Count " +str(ftacount)+" (Sec 1 = %s, Sec2 = %s)" % ((int(ftacount)-int(ftaonlys2count)),int(ftaonlys2count)) )
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            # elif len(form202as2FTA)!=0: #i==3:
-            #     Recontdetails.append("form202as2FTA")
-            #     Recontdetails.append(recond[0])
-            elif len(form202bs1FTA)!=0: #i==4:
-                Recontdetails.append("Form 202B S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203as1FTA)!=0: #i==5:
-                Recontdetails.append("Form 203A S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203as2FTA)!=0: #i==6:
-                Recontdetails.append("Form 203A S2")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203bs1FTA)!=0: #i==7:
-                Recontdetails.append("Form 203B S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203bs2FTA)!=0: #i==8:
-                Recontdetails.append("Form 203B S2")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203cs1FTA)!=0: #i==9:
-                Recontdetails.append("Form 203C S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203cs2FTA)!=0: #i==10:
-                Recontdetails.append("Form 203C S2")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            elif len(form203cs3FTA)!=0: #i==11:
-                Recontdetails.append("Form 203C S3")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("TaxciseCount " + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            else:
-                Recontdetails.append("Form 203 DEDT S1")
-                Recontdetails.append("FTA Count " +str(ftacount))
-                Recontdetails.append("Taxcise Count" + str(recond[0]))
-                Recontdetails.append("")
-                Recontdetails.append(getcurrenttime())
-            # Recontdetails.append(arraydata)
-            arraydata = np.array(Recontdetails)
-            Recontdetails1.append(arraydata)
-            writetoexcel(Recontdetails1,1)
-            writetoexcel(reconmissingnos,1)
-            # print(recond[0])
-            i+=1
-        else:
-            pass
-        # i+=1
 
 def checkelembyxpath(par1):
 
@@ -374,128 +94,131 @@ def fillpdfdata():
         #VAT on Sales and All Other Outputs Table
         #For 1a
         a1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(amountid)+"']")
-        a1amount.send_keys("0.00")
+        a1amount.send_keys(pdfdata[9])
         a1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(vatid)+"']")
-        a1vat.send_keys("0.00")
+        a1vat.send_keys(pdfdata[10])
         a1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(adjstid)+"']")
-        a1adjs.send_keys("0.00")
+        a1adjs.send_keys(pdfdata[11])
         
         #For 1b
         b1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(amountid)+"']")
-        b1amount.send_keys("2000.00")
+        b1amount.send_keys(pdfdata[14])
         b1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(vatid)+"']")
-        b1vat.send_keys("100.00")
+        b1vat.send_keys(pdfdata[15])
         b1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(adjstid)+"']")
-        b1adjs.send_keys("0.00")
+        b1adjs.send_keys(pdfdata[16])
 
         #For 1c
         c1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(amountid)+"']")
-        c1amount.send_keys("0.00")
+        c1amount.send_keys(pdfdata[19])
         c1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(vatid)+"']")
-        c1vat.send_keys("0.00")
+        c1vat.send_keys(pdfdata[20])
         c1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(adjstid)+"']")
-        c1adjs.send_keys("0.00")
+        c1adjs.send_keys(pdfdata[21])
 
         #For 1d
         d1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(amountid)+"']")
-        d1amount.send_keys("0.00")
+        d1amount.send_keys(pdfdata[24])
         d1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(vatid)+"']")
-        d1vat.send_keys("0.00")
+        d1vat.send_keys(pdfdata[25])
         d1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(adjstid)+"']")
-        d1adjs.send_keys("0.00")
+        d1adjs.send_keys(pdfdata[26])
 
         #For 1e
         e1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(amountid)+"']")
-        e1amount.send_keys("0.00")
+        e1amount.send_keys(pdfdata[29])
         e1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(vatid)+"']")
-        e1vat.send_keys("0.00")
+        e1vat.send_keys(pdfdata[30])
         e1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(adjstid)+"']")
-        e1adjs.send_keys("0.00")
+        e1adjs.send_keys(pdfdata[31])
 
         #For 1f
         f1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(amountid)+"']")
-        f1amount.send_keys("0.00")
+        f1amount.send_keys(pdfdata[34])
         f1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(vatid)+"']")
-        f1vat.send_keys("0.00")
+        f1vat.send_keys(pdfdata[35])
         f1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(adjstid)+"']")
-        f1adjs.send_keys("0.00")
+        f1adjs.send_keys(pdfdata[36])
 
         #For 1g
         g1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(amountid)+"']")
-        g1amount.send_keys("0.00")
+        g1amount.send_keys(pdfdata[39])
         g1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(vatid)+"']")
-        g1vat.send_keys("0.00")
+        g1vat.send_keys(pdfdata[40])
         g1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(adjstid)+"']")
-        g1adjs.send_keys("0.00")
+        g1adjs.send_keys(pdfdata[41])
 
         #For 2
         row2amount = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(amountid)+"']")
-        row2amount.send_keys("0.00")
+        row2amount.send_keys(pdfdata[45])
         row2vat = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(vatid)+"']")
-        row2vat.send_keys("0.00")
+        row2vat.send_keys(pdfdata[46])
         # row2adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(adjstid)+"']")
-        # row2adjs.send_keys("0.00")
+        # row2adjs.send_keys(pdfdata[47])
 
         #For 3
         row3amount = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(amountid)+"']")
-        row3amount.send_keys("0.00")
+        row3amount.send_keys(pdfdata[50])
         row3vat = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(vatid)+"']")
-        row3vat.send_keys("0.00")
+        row3vat.send_keys(pdfdata[51])
         # row3adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(adjstid)+"']")
-        # row3adjs.send_keys("0.00")
+        # row3adjs.send_keys(pdfdata[52])
 
         #For 4
         row4amount = driver.find_element(By.XPATH, "//input[@id='"+str(row4id)+str(amountid)+"']")
-        row4amount.send_keys("0.00")
+        row4amount.send_keys(pdfdata[55])
         # row4vat = driver.find_element(By.XPATH, "//input[@id='"+str(row4id)+str(vatid)+"']")
-        # row4vat.send_keys("0.00")
+        # row4vat.send_keys(pdfdata[9])
         # row4adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row4id)+str(adjstid)+"']")
-        # row4adjs.send_keys("0.00")
+        # row4adjs.send_keys(pdfdata[9])
 
         #For 5
         row5amount = driver.find_element(By.XPATH, "//input[@id='"+str(row5id)+str(amountid)+"']")
-        row5amount.send_keys("0.00")
+        row5amount.send_keys(pdfdata[58])
         # row5vat = driver.find_element(By.XPATH, "//input[@id='"+str(row5id)+str(vatid)+"']")
-        # row5vat.send_keys("0.00")
+        # row5vat.send_keys(pdfdata[9])
         # row5adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row5id)+str(adjstid)+"']")
-        # row5adjs.send_keys("0.00")
+        # row5adjs.send_keys(pdfdata[9])
 
         #For 6
         # row6amount = driver.find_element(By.XPATH, "//input[@id='"+str(row6id)+str(amountid)+"']")
-        # row6amount.send_keys("0.00")
+        # row6amount.send_keys(pdfdata[9])
         # row6vat = driver.find_element(By.XPATH, "//input[@id='"+str(row6id)+str(vatid)+"']")
-        # row6vat.send_keys("0.00")
+        # row6vat.send_keys(pdfdata[9])
         # # row6adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row6id)+str(adjstid)+"']")
-        # # row6adjs.send_keys("0.00")
+        # # row6adjs.send_keys(pdfdata[9])
     
         #For 7
         row7amount = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(amountid)+"']")
-        row7amount.send_keys("0.00")
+        row7amount.send_keys(pdfdata[65])
         row7vat = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(vatid)+"']")
-        row7vat.send_keys("0.00")
+        row7vat.send_keys(pdfdata[66])
         # row7adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(adjstid)+"']")
-        # row7adjs.send_keys("0.00")
+        # row7adjs.send_keys(pdfdata[9])
 
         #VAT on Expenses and All Other Inputs
         row9amount = driver.find_element(By.XPATH, "//input[@id='"+str(row9id)+str(amountid)+"']")
-        row9amount.send_keys("0.00")
+        row9amount.send_keys(pdfdata[88])
         row9vat = driver.find_element(By.XPATH, "//input[@id='"+str(row9idb)+str(vatid)+"']")
-        row9vat.send_keys("0.00")
+        row9vat.send_keys(pdfdata[89])
         row9adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row9id)+str(adjstid)+"']")
-        row9adjs.send_keys("0.00")
+        row9adjs.send_keys(pdfdata[90])
         
         row10amount = driver.find_element(By.XPATH, "//input[@id='"+str(row10id)+str(amountid)+"']")
-        row10amount.send_keys("0.00")
+        row10amount.send_keys(pdfdata[93])
         row10vat = driver.find_element(By.XPATH, "//input[@id='"+str(row10idb)+str(vatid)+"']")
-        row10vat.send_keys("0.00")
+        row10vat.send_keys(pdfdata[94])
         # row10adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row10id)+str(adjstid)+"']")
-        # row10adjs.send_keys("0.00")
+        # row10adjs.send_keys(pdfdata[9])
 
         emailid = driver.find_element(By.XPATH, "//input[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_Filing_txtDeclerantEmailAddress']")
         emailid.send_keys(usernameI)
 
         checkboxdo = driver.find_element(By.XPATH, "//input[@id='chkAccept']")
         checkboxdo.click()
+
+        saveasdraft = driver.find_element(By.XPATH, "//input[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_Filing_btnSaveAsDraft']")
+        saveasdraft.click()
         count+=1
 
 def writetoexcel(p1,p2):
@@ -534,35 +257,6 @@ def chkblockui():
         chkblockui()
 
 
-Recontdetails=[]
-form201s1FTA=[]
-form202as1egFTA=[]
-form202as1rgdzFTA=[]
-form202as1tgdzFTA=[]
-form202as1tgedzFTA=[]
-form202as1cgdzFTA=[]
-form202as1imdzFTA=[]
-form202as1pddzFTA=[]
-form202as2FTA=[]
-form202bs1FTA=[]
-form203as1FTA=[]
-form203as2FTA=[]
-form203bs1FTA=[]
-formftasec1T=[]
-formftasec2T=[]
-form203bs2FTA=[]
-form203cs1FTA=[]
-form203cs2FTA=[]
-form203cs3FTA=[]
-form203deds1FTA=[]
-dd = list()
-
-# Missingdeclno=[]
-# Missingdeclno1=[]
-
-if not os.path.exists("Declaration Number Reconcilation File.xlsx"):
-    createexcelfile()
-    
 sysstarttime = datetime.now()
 sysstarttime = sysstarttime.strftime("%H:%M:%S")
 # print(sysstart)
@@ -570,11 +264,11 @@ sysstarttime = sysstarttime.strftime("%H:%M:%S")
 print("   HI!!! Welcome to Recon BOT\n *********************************\n BOT Started at %s \n" % sysstarttime)
 
 def main(GUIaccept):
-    if not os.path.exists("./PDF/example.pdf"):
+    global taxcisejson,driver,taxcisefname,sysendtime,usernameI,pdfdata
+    if os.path.exists("./PDF/example.pdf"):
         pdfdata = readpdf()
     else:
         print("PDF File Not Found, BOT is terminated")
-    global taxcisejson,driver,taxcisefname,sysendtime,usernameI
     userprompt = GUIaccept[0]   #input("Do you want to run Automatic or Manual Process:?\n 1=Automatic\n 2=Manual\n ")
     formname = GUIaccept[1]   #input("Select the form name:?\n 1=EX201 - Excise Goods that require Customs clearance\n 2=EX202A – Designated Zone Reporting\n 3=EX202B – Producer Declaration\n 4=Inventory - EX203A - Local Purchase Form\n 5=Inventory - EX203B - Lost and Damaged Declaration\n 6=Inventory – EX203C – Transfer of Ownership Within Designated Zones\n 7=EX203 - Deductible Excise Tax\n")
 
@@ -667,8 +361,12 @@ def main(GUIaccept):
             # form201clk = driver.find_element(By.XPATH, "//ul[@class='nav nav-pills']/li[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_MOFExciseDeclationDashboard_ucDashboardTabs_liExciseImport']/a[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_MOFExciseDeclationDashboard_ucDashboardTabs_tabExciseImport']")
             form201clk = driver.find_element(By.XPATH, "//a[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_VATReturnDashboard_tabVATReturn']")
             form201clk.click()
-            newvatfile = driver.find_element_by_id("p_lt_ctl10_pageplaceholder_p_lt_ctl00_VATReturnPage_btnVatTaxReturn")
-            newvatfile.click()
+            if checkelembyid('p_lt_ctl10_pageplaceholder_p_lt_ctl00_VATReturnPage_btnVatTaxReturn'):
+                newvatfile = driver.find_element_by_id("p_lt_ctl10_pageplaceholder_p_lt_ctl00_VATReturnPage_btnVatTaxReturn")
+                newvatfile.click()
+            else:
+                editvatfile = driver.find_element(By.XPATH, "//table[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_VATReturnPage_gv_VATTaxReturn']/tbody/tr[2]/td[11]/a")
+                editvatfile.click()
             time.sleep(1)
             chkblockui()
             fillpdfdata()
@@ -677,16 +375,16 @@ def main(GUIaccept):
             pass
 
 
-    logout = driver.find_element(By.XPATH, "//a[@title='Logout']")
-    logout.click()
-
     sysendtime = datetime.now()
     sysendtime = sysendtime.strftime("%H:%M:%S")
     # print("BOT ended at %s" % sysendtime)
+    countdown(2)
+    logout = driver.find_element(By.XPATH, "//a[@title='Logout']")
+    logout.click()
 
     # time.sleep(15)
     countdown(int(5))
-    print("Please close the browser once logged out successfully")
+    # print("Please close the browser once logged out successfully")
     driver.close()
 
     '''
