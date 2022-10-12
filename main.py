@@ -92,80 +92,108 @@ def fillpdfdata():
     count=1
     while(count==1):
         #VAT on Sales and All Other Outputs Table
+        # For clear(), check this link "https://stackoverflow.com/questions/70125902/how-to-clear-text-field-with-selenium-python"
+
         #For 1a
         a1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(amountid)+"']")
+        a1amount.clear()
         a1amount.send_keys(pdfdata[9])
         a1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(vatid)+"']")
+        a1vat.clear()
         a1vat.send_keys(pdfdata[10])
         a1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"AbuDhabi"+str(adjstid)+"']")
+        a1adjs.clear()
         a1adjs.send_keys(pdfdata[11])
         
         #For 1b
         b1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(amountid)+"']")
+        b1amount.clear()
         b1amount.send_keys(pdfdata[14])
         b1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(vatid)+"']")
+        b1vat.clear()
         b1vat.send_keys(pdfdata[15])
         b1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Dhabi"+str(adjstid)+"']")
+        b1adjs.clear()
         b1adjs.send_keys(pdfdata[16])
 
         #For 1c
         c1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(amountid)+"']")
+        c1amount.clear()
         c1amount.send_keys(pdfdata[19])
         c1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(vatid)+"']")
+        c1vat.clear()
         c1vat.send_keys(pdfdata[20])
         c1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Sharjah"+str(adjstid)+"']")
+        c1adjs.clear()
         c1adjs.send_keys(pdfdata[21])
 
         #For 1d
         d1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(amountid)+"']")
+        d1amount.clear()
         d1amount.send_keys(pdfdata[24])
         d1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(vatid)+"']")
+        d1vat.clear()
         d1vat.send_keys(pdfdata[25])
         d1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Ajman"+str(adjstid)+"']")
+        d1adjs.clear()
         d1adjs.send_keys(pdfdata[26])
 
         #For 1e
         e1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(amountid)+"']")
+        e1amount.clear()
         e1amount.send_keys(pdfdata[29])
         e1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(vatid)+"']")
+        e1vat.clear()
         e1vat.send_keys(pdfdata[30])
         e1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"UmmAlQuwain"+str(adjstid)+"']")
+        e1adjs.clear()
         e1adjs.send_keys(pdfdata[31])
 
         #For 1f
         f1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(amountid)+"']")
+        f1amount.clear()
         f1amount.send_keys(pdfdata[34])
         f1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(vatid)+"']")
+        f1vat.clear()
         f1vat.send_keys(pdfdata[35])
         f1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"RasAlKhaimah"+str(adjstid)+"']")
+        f1adjs.clear()
         f1adjs.send_keys(pdfdata[36])
 
         #For 1g
         g1amount = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(amountid)+"']")
+        g1amount.clear()
         g1amount.send_keys(pdfdata[39])
         g1vat = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(vatid)+"']")
+        g1vat.clear()
         g1vat.send_keys(pdfdata[40])
         g1adjs = driver.find_element(By.XPATH, "//input[@id='"+str(rowcommonid)+"Fujairah"+str(adjstid)+"']")
+        g1adjs.clear()
         g1adjs.send_keys(pdfdata[41])
 
         #For 2
-        row2amount = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(amountid)+"']")
-        row2amount.send_keys(pdfdata[45])
-        row2vat = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(vatid)+"']")
-        row2vat.send_keys(pdfdata[46])
-        # row2adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(adjstid)+"']")
-        # row2adjs.send_keys(pdfdata[47])
+        # row2amount = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(amountid)+"']")
+        # row2amount.clear()
+        # row2amount.send_keys(pdfdata[45])
+        # row2vat = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(vatid)+"']")
+        # row2vat.clear()
+        # row2vat.send_keys(pdfdata[46])
+        # # row2adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row2id)+str(adjstid)+"']")
+        # # row2adjs.send_keys(pdfdata[47])
 
         #For 3
         row3amount = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(amountid)+"']")
+        row3amount.clear()
         row3amount.send_keys(pdfdata[50])
         row3vat = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(vatid)+"']")
+        row3vat.clear()
         row3vat.send_keys(pdfdata[51])
         # row3adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row3id)+str(adjstid)+"']")
         # row3adjs.send_keys(pdfdata[52])
 
         #For 4
         row4amount = driver.find_element(By.XPATH, "//input[@id='"+str(row4id)+str(amountid)+"']")
+        row4amount.clear()
         row4amount.send_keys(pdfdata[55])
         # row4vat = driver.find_element(By.XPATH, "//input[@id='"+str(row4id)+str(vatid)+"']")
         # row4vat.send_keys(pdfdata[9])
@@ -174,6 +202,7 @@ def fillpdfdata():
 
         #For 5
         row5amount = driver.find_element(By.XPATH, "//input[@id='"+str(row5id)+str(amountid)+"']")
+        row5amount.clear()
         row5amount.send_keys(pdfdata[58])
         # row5vat = driver.find_element(By.XPATH, "//input[@id='"+str(row5id)+str(vatid)+"']")
         # row5vat.send_keys(pdfdata[9])
@@ -190,28 +219,36 @@ def fillpdfdata():
     
         #For 7
         row7amount = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(amountid)+"']")
+        row7amount.clear()
         row7amount.send_keys(pdfdata[65])
         row7vat = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(vatid)+"']")
+        row7vat.clear()
         row7vat.send_keys(pdfdata[66])
         # row7adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row7id)+str(adjstid)+"']")
         # row7adjs.send_keys(pdfdata[9])
 
         #VAT on Expenses and All Other Inputs
         row9amount = driver.find_element(By.XPATH, "//input[@id='"+str(row9id)+str(amountid)+"']")
+        row9amount.clear()
         row9amount.send_keys(pdfdata[88])
         row9vat = driver.find_element(By.XPATH, "//input[@id='"+str(row9idb)+str(vatid)+"']")
+        row9vat.clear()
         row9vat.send_keys(pdfdata[89])
         row9adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row9id)+str(adjstid)+"']")
+        row9adjs.clear()
         row9adjs.send_keys(pdfdata[90])
         
         row10amount = driver.find_element(By.XPATH, "//input[@id='"+str(row10id)+str(amountid)+"']")
+        row10amount.clear()
         row10amount.send_keys(pdfdata[93])
         row10vat = driver.find_element(By.XPATH, "//input[@id='"+str(row10idb)+str(vatid)+"']")
+        row10vat.clear()
         row10vat.send_keys(pdfdata[94])
         # row10adjs = driver.find_element(By.XPATH, "//input[@id='"+str(row10id)+str(adjstid)+"']")
         # row10adjs.send_keys(pdfdata[9])
 
         emailid = driver.find_element(By.XPATH, "//input[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_Filing_txtDeclerantEmailAddress']")
+        emailid.clear()
         emailid.send_keys(usernameI)
 
         checkboxdo = driver.find_element(By.XPATH, "//input[@id='chkAccept']")
@@ -220,6 +257,9 @@ def fillpdfdata():
         saveasdraft = driver.find_element(By.XPATH, "//input[@id='p_lt_ctl10_pageplaceholder_p_lt_ctl00_Filing_btnSaveAsDraft']")
         saveasdraft.click()
         count+=1
+        
+        # if os.path.exists("test.txt"):
+        #     os.remove("test.txt")
 
 def writetoexcel(p1,p2):
     #Converting array into dataframe
@@ -245,7 +285,6 @@ def openform(openformI):
         pass
     return transactionc
 
-
 def chkblockui():
     # if checkelembyxpath("div[@class='blockUI blockMsg blockPage']"):
     if checkelembyxpath("//div[@class='blockUI']"):
@@ -263,17 +302,17 @@ sysstarttime = sysstarttime.strftime("%H:%M:%S")
 
 print("   HI!!! Welcome to Recon BOT\n *********************************\n BOT Started at %s \n" % sysstarttime)
 
-def main(GUIaccept):
+def main():
     global taxcisejson,driver,taxcisefname,sysendtime,usernameI,pdfdata
     if os.path.exists("./PDF/example.pdf"):
         pdfdata = readpdf()
     else:
         print("PDF File Not Found, BOT is terminated")
-    userprompt = GUIaccept[0]   #input("Do you want to run Automatic or Manual Process:?\n 1=Automatic\n 2=Manual\n ")
-    formname = GUIaccept[1]   #input("Select the form name:?\n 1=EX201 - Excise Goods that require Customs clearance\n 2=EX202A – Designated Zone Reporting\n 3=EX202B – Producer Declaration\n 4=Inventory - EX203A - Local Purchase Form\n 5=Inventory - EX203B - Lost and Damaged Declaration\n 6=Inventory – EX203C – Transfer of Ownership Within Designated Zones\n 7=EX203 - Deductible Excise Tax\n")
+    userprompt = "2" #GUIaccept[0]   #input("Do you want to run Automatic or Manual Process:?\n 1=Automatic\n 2=Manual\n ")
+    formname = "1" #GUIaccept[1]   #input("Select the form name:?\n 1=EX201 - Excise Goods that require Customs clearance\n 2=EX202A – Designated Zone Reporting\n 3=EX202B – Producer Declaration\n 4=Inventory - EX203A - Local Purchase Form\n 5=Inventory - EX203B - Lost and Damaged Declaration\n 6=Inventory – EX203C – Transfer of Ownership Within Designated Zones\n 7=EX203 - Deductible Excise Tax\n")
 
     if formname=="1" or formname=="2" or formname=="3" or formname=="5" or formname=="7":
-        formperiod=GUIaccept[2]   #input("Please Enter the Period in the format M-YYYY / MM-YYYY (Eg: 1-2021 / 10-2021 :\n)")
+        formperiod= "10-2022" #GUIaccept[2]   #input("Please Enter the Period in the format M-YYYY / MM-YYYY (Eg: 1-2021 / 10-2021 :\n)")
     elif formname=="6":
         print("By Default BOT will filter the Approved Status for FORM 203C")
     else:
@@ -296,14 +335,14 @@ def main(GUIaccept):
 
     global clientname,TStatus,TStatusF,projectname,userdateselect,userdate
     
-    with open('link', 'r')as f:
-        linkdata = json.load(f)
+    # with open('link', 'r')as f:
+    #     linkdata = json.load(f)
 
-    clientname=linkdata['client']
-    projectname=linkdata['link']
+    clientname="1" #linkdata['client']
+    projectname="1" #linkdata['link']
     # clientname=GUIaccept[3]   #input("You are running for which user?\n 1 Alfakhar\n 2 Steinweg\n")
-    Generatekey=GUIaccept[4]   #input("Do you want to download data from taxcise? (y/n) : ")
-    TStatus=GUIaccept[6]
+    Generatekey="n" #GUIaccept[4]   #input("Do you want to download data from taxcise? (y/n) : ")
+    TStatus="1" #GUIaccept[6]
 
     # if TStatus=="1":
     #     TStatusF="Approved"
@@ -312,8 +351,6 @@ def main(GUIaccept):
 
     if Generatekey=='y':
         taxcisejson=gettaxcisedata(clientname,0,projectname)
-    else:
-        taxcisejson='Taxcise.json'
 
       
     # chrome.get_chrome_version()
@@ -349,6 +386,8 @@ def main(GUIaccept):
     '''
     
     chkblockui()
+    if checkelembyxpath("//a[@href='/User/Vatreturn/dashboard']"):
+        countdown(10) 
     excisedashb = driver.find_element_by_xpath("//a[@href='/User/Vatreturn/dashboard']")
     excisedashb.click()
     chkblockui()
@@ -435,15 +474,17 @@ def main(GUIaccept):
 # print(pyGUI())
 import os
 if os.path.exists("link"):
-
     if __name__=="__main__":
-        GUIaccept = pyGUI()
-        if GUIaccept==False:
-            exit()
-        elif GUIaccept[5]=='Proceed':
-            main(GUIaccept)
-            # print('procceed')
+        main()
+        # GUIaccept = pyGUI()
+        # if GUIaccept==False:
+        #     exit()
+        # elif GUIaccept[5]=='Proceed':
+        #     main(GUIaccept)
+        #     # print('procceed')
 else:
+    if __name__=="__main__":
+        main()
     print("Link file does not exist")
 
 

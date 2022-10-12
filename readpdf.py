@@ -8,13 +8,17 @@ def readpdf():
         for page in doc:
             text += page.get_text()
 
+    import os
+    if os.path.exists("test.txt"):
+        os.remove("test.txt")
+
     with open("test.txt", "w") as f:
         data = f.write(text)
 
 
-    with open(r"test.txt", 'r') as fp:
-        lines = sum(1 for line in fp)
-        print('Total Number of lines:', lines)
+    # with open(r"test.txt", 'r') as fp:
+    #     lines = sum(1 for line in fp)
+    #     print('Total Number of lines:', lines)
 
     # print(text)
     
